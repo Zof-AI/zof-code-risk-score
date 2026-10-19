@@ -4,7 +4,36 @@ A transparent local heuristic that highlights changes that may deserve more revi
 
 This independently authored public heuristic is advisory. It does not use proprietary Zof weights, training data, private telemetry or a commercial risk model. A low score does not establish safety or passing verification.
 
-Version 0.1.1 is prepared under the Apache-2.0 license. Use the GitHub source installation below; npm registry publication is not claimed.
+
+
+<!-- ZOF_NPM_INSTALL_START -->
+## Install from npm
+
+Use Node.js 22 or 24 and npm. File-based operations require Linux or macOS with Python 3.10 or newer; Windows file operations fail closed. In a new project directory, install the version used by this guide:
+
+```sh
+npm install --ignore-scripts --save-exact @zof-ai/code-risk-score@0.1.2
+npx --no-install zof-code-risk-score --help
+```
+
+The package includes compiled JavaScript, TypeScript declarations and its runtime dependencies. No source build, Zof account or repository upload is required. `--ignore-scripts` disables installation lifecycle scripts; `--no-install` keeps the example commands from downloading another package.
+
+Confirm the public ESM entry point; this prints `function`:
+
+```sh
+node --input-type=module -e "import('@zof-ai/code-risk-score').then(api => console.log(typeof api.scoreRisk))"
+```
+
+Run a packaged example from the same directory:
+
+```sh
+npx --no-install zof-code-risk-score --root node_modules/@zof-ai/code-risk-score/examples --input small-change.json --json
+```
+
+The supplied example reports score `3.8`, no missing inputs and `verificationResult: "not-run"`. The score is advisory; it does not verify the change.
+
+Package: [@zof-ai/code-risk-score](https://www.npmjs.com/package/@zof-ai/code-risk-score). The source-checkout instructions and three additional workflows follow.
+<!-- ZOF_NPM_INSTALL_END -->
 
 <!-- ZOF_RELEASE_INSTALL_START -->
 ## Install from GitHub source
@@ -12,7 +41,7 @@ Version 0.1.1 is prepared under the Apache-2.0 license. Use the GitHub source in
 Requires Node.js 22 or 24, npm, and Git. Filesystem operations require Linux or macOS with Python 3.10 or newer; Windows file operations fail closed. Clone this repository and explicitly prepare its reviewed release dependencies:
 
 ```sh
-git clone https://github.com/Zof-AI/zof-code-risk-score.git
+git clone --branch v0.1.2 --depth 1 https://github.com/Zof-AI/zof-code-risk-score.git
 cd zof-code-risk-score
 node scripts/bootstrap.mjs --allow-network
 npm ci --ignore-scripts --prefer-offline
@@ -22,7 +51,6 @@ npm test
 
 The bootstrap downloads only the exact versioned dependency assets from [GitHub Releases](https://github.com/Zof-AI/zof-code-risk-score/releases), as listed in `scripts/release-dependencies.json`, verifies SHA256 and byte size, and adds them to the npm cache. It does not extract archives, run package scripts, collect application data, or send credentials. Downloads require the explicit flag and follow only HTTPS GitHub asset redirects. Installation then fetches ordinary third-party dependencies from npm. Use a writable npm cache; set `npm_config_cache` consistently for both commands if needed. An unavailable asset, changed hash, or oversized response stops installation.
 
-GitHub source and release artifacts are the initial distribution channel. These instructions do not claim that `@zof-ai` packages are published on npm or that the VS Code extension is listed in Marketplace.
 <!-- ZOF_RELEASE_INSTALL_END -->
 
 ## Local quick start
@@ -97,7 +125,7 @@ npm test
 npm pack --ignore-scripts
 ```
 
-Tests independently calculate each signal delta, exact contribution sums, custom weights, caps, missing data and error cases. They also exercise real Git changes, safe file reads, symlinks, malformed/oversized inputs, redaction, documentation commands and a clean tarball installation with explicit candidate dependencies. CI targets Linux/macOS on Node 22/24; only completed jobs establish platform verification. See [security policy](SECURITY.md) and [release procedure](docs/RELEASE.md). Registry publication and live registry installation are not claimed.
+Tests independently calculate each signal delta, exact contribution sums, custom weights, caps, missing data and error cases. They also exercise real Git changes, safe file reads, symlinks, malformed/oversized inputs, redaction, documentation commands and a clean tarball installation with explicit candidate dependencies. CI targets Linux/macOS on Node 22/24; only completed jobs establish platform verification. See [security policy](SECURITY.md) and [release procedure](docs/RELEASE.md). Versioned GitHub releases record installation and validation details.
 
 ## Filesystem and Git boundaries
 

@@ -1,6 +1,6 @@
-import { analyzeImpact } from '@zof-ai/change-impact';
-import type { AnalyzeOptions } from '@zof-ai/change-impact';
-import { assertSafeRelativePath, redact, safeReadJson } from '@zof-ai/evidence-spec';
+import { analyzeImpact } from '@zofai/change-impact';
+import type { AnalyzeOptions } from '@zofai/change-impact';
+import { assertSafeRelativePath, redact, safeReadJson } from '@zofai/evidence-spec';
 export const DEFAULT_WEIGHTS = Object.freeze({ changedFiles: 2, changedLines: 0.05, authentication: 15, payments: 15, migrations: 12, publicApi: 10, concurrency: 10, coverageGap: 15, dependencies: 12, configuration: 5 });
 export type RuleId=keyof typeof DEFAULT_WEIGHTS;
 export interface RiskChange { path: string; addedLines?: number; deletedLines?: number }

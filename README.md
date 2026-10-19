@@ -1,4 +1,4 @@
-# @zofai/code-risk-score
+# @zof-ai/code-risk-score
 
 A transparent local heuristic that highlights changes that may deserve more review. Every contribution is shown, all weights are configurable, and missing inputs stay explicitly unknown. It never executes source or tests, uploads data, or contacts a hosted service.
 
@@ -22,7 +22,7 @@ npm test
 
 The bootstrap downloads only the exact `v0.1.0` dependency assets from [GitHub Releases](https://github.com/Zof-AI/zof-code-risk-score/releases), as listed in `scripts/release-dependencies.json`, verifies SHA256 and byte size, and adds them to the npm cache. It does not extract archives, run package scripts, collect application data, or send credentials. Downloads require the explicit flag and follow only HTTPS GitHub asset redirects. Installation then fetches ordinary third-party dependencies from npm. Use a writable npm cache; set `npm_config_cache` consistently for both commands if needed. An unavailable asset, changed hash, or oversized response stops installation.
 
-GitHub source and release artifacts are the initial distribution channel. These instructions do not claim that `@zofai` packages are published on npm or that the VS Code extension is listed in Marketplace.
+GitHub source and release artifacts are the initial distribution channel. These instructions do not claim that `@zof-ai` packages are published on npm or that the VS Code extension is listed in Marketplace.
 <!-- ZOF_RELEASE_INSTALL_END -->
 
 ## Local quick start
@@ -35,7 +35,7 @@ npm run build
 node dist/cli.js --root examples --input small-change.json --json
 ```
 
-The example score is **3.8**: one file (2), six changed lines (0.3), and 10% uncovered lines (1.5). The package identifier is `@zofai/code-risk-score`; executable name is `zof-code-risk-score`.
+The example score is **3.8**: one file (2), six changed lines (0.3), and 10% uncovered lines (1.5). The package identifier is `@zof-ai/code-risk-score`; executable name is `zof-code-risk-score`.
 
 ## Three controlled examples
 
@@ -72,7 +72,7 @@ Path rules count matching files. Segments are separated by slash, underscore, do
 ## API
 
 ```js
-import { scoreRisk, analyzeRisk, DEFAULT_WEIGHTS, formatReport } from '@zofai/code-risk-score';
+import { scoreRisk, analyzeRisk, DEFAULT_WEIGHTS, formatReport } from '@zof-ai/code-risk-score';
 const report = scoreRisk({
   changes: [{ path: 'src/auth/login.ts', addedLines: 4, deletedLines: 2 }],
   coverage: { coveredLines: 90, totalLines: 100 }
@@ -80,7 +80,7 @@ const report = scoreRisk({
 console.log(formatReport(report));
 ```
 
-`scoreRisk(input, config?)` validates an explicit input. `analyzeRisk({root, base?, head?, changedFiles?, config?, configFile?, coverage?, coverageFile?, inputFile?})` adds bounded local/Git input collection using `@zofai/change-impact`. All reports use `risk/v1` and contain the score, raw score, advisory band, signals with exact input/weight/contribution/path explanations, missing inputs, limitations, `advisory: true`, and `verificationResult: "not-run"`.
+`scoreRisk(input, config?)` validates an explicit input. `analyzeRisk({root, base?, head?, changedFiles?, config?, configFile?, coverage?, coverageFile?, inputFile?})` adds bounded local/Git input collection using `@zof-ai/change-impact`. All reports use `risk/v1` and contain the score, raw score, advisory band, signals with exact input/weight/contribution/path explanations, missing inputs, limitations, `advisory: true`, and `verificationResult: "not-run"`.
 
 Missing changed-line or coverage observations produce null signal inputs and zero observed contribution, with `scoreMeaning: "partial-inputs"`. This is an incomplete score, not evidence of low risk. [Missing-data example](examples/missing-coverage.json) demonstrates that distinction. Unknown Git/static analysis conditions also mark input completeness partial.
 
